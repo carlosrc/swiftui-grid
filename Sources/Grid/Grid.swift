@@ -5,7 +5,7 @@ public struct Grid<Content>: View where Content: View {
     @Environment(\.gridStyle) private var style
     @State var preferences: GridPreferences = GridPreferences(size: .zero, items: [])
     let items: [GridItem]
-    var onTap: (() -> ()) = {}
+    var onTapItem: ((Any) -> (Void)) = {_ in}
     
     public var body: some View {
         GeometryReader { geometry in
@@ -20,9 +20,10 @@ public struct Grid<Content>: View where Content: View {
                         .alignmentGuide(.top, computeValue: { _ in geometry.size.height - (self.preferences[item.id]?.bounds.origin.y ?? 0) })
                         .background(GridPreferencesModifier(id: item.id, bounds: self.preferences[item.id]?.bounds ?? .zero))
                         .anchorPreference(key: GridItemBoundsPreferencesKey.self, value: .bounds) { [geometry[$0]] }
-                         .onTapGesture(perform: {
-                            self.onTap()
-                        })
+                        .simultaneousGesture(TapGesture().onEnded({ _ in
+                            print("GRID TAP GESTURE simultaneousGesture", item.object)
+                            self.onTapItem(item.object)
+                        }))
                 }
             }
             .transformPreference(GridPreferencesKey.self) {
@@ -44,7 +45,8 @@ public struct Grid<Content>: View where Content: View {
 @available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
 struct Grid_Previews: PreviewProvider {
     static var previews: some View {
-        Grid(0...100, id: \.self) {
+        Grid(0...100, id: \.self, onTap: { item in
+        }) {
             Text("\($0)")
         }
     }

@@ -4,18 +4,19 @@ import Grid
 struct StaticGridView: View {
     var body: some View {
         ScrollView {
-            Grid {
-                Capsule().foregroundColor(.random)
-                Capsule().foregroundColor(.random)
-                Capsule().foregroundColor(.random)
-                Capsule().foregroundColor(.random)
-                Capsule().foregroundColor(.random)
-                Capsule().foregroundColor(.random)
-                Capsule().foregroundColor(.random)
-                Capsule().foregroundColor(.random)
-                Capsule().foregroundColor(.random)
-                Capsule().foregroundColor(.random)
-            }
+//            Grid {
+//                Capsule().foregroundColor(.random)
+//                Capsule().foregroundColor(.random)
+//                Capsule().foregroundColor(.random)
+//                Capsule().foregroundColor(.random)
+//                Capsule().foregroundColor(.random)
+//                Capsule().foregroundColor(.random)
+//                Capsule().foregroundColor(.random)
+//                Capsule().foregroundColor(.random)
+//                Capsule().foregroundColor(.random)
+//                Capsule().foregroundColor(.random)
+//            }
+                EmptyView()
             .padding(16)
             .frame(height: 300)
         }
