@@ -1,11 +1,11 @@
 import SwiftUI
 
 extension Grid {
-    public init<Data, Item>(_ data: Data, @ViewBuilder item: @escaping (Data.Element) -> Item, onTap: @escaping (Item) -> ()) where Content == ForEach<Data, Data.Element.ID, Item>, Data : RandomAccessCollection, Item : View, Data.Element : Identifiable {
+    public init<Data, Item>(_ data: Data, @ViewBuilder item: @escaping (Data.Element) -> Item, onTap: @escaping () -> ()) where Content == ForEach<Data, Data.Element.ID, Item>, Data : RandomAccessCollection, Item : View, Data.Element : Identifiable {
         self.items = data.map { GridItem(view: AnyView(item($0)), id: AnyHashable($0.id)) }
     }
 
-    public init<Data, ID, Item>(_ data: Data, id: KeyPath<Data.Element, ID>, @ViewBuilder item: @escaping (Data.Element) -> Item, onTap: @escaping (Item) -> ()) where Content == ForEach<Data, ID, Item>, Data : RandomAccessCollection, ID : Hashable, Item : View {
+    public init<Data, ID, Item>(_ data: Data, id: KeyPath<Data.Element, ID>, @ViewBuilder item: @escaping (Data.Element) -> Item, onTap: @escaping () -> ()) where Content == ForEach<Data, ID, Item>, Data : RandomAccessCollection, ID : Hashable, Item : View {
         self.items = data.map { GridItem(view: AnyView(item($0)), id: AnyHashable($0[keyPath: id])) }
     }
 
